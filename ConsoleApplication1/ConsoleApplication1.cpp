@@ -42,13 +42,6 @@ void Object::reverse() {
 class Subject: public Object {
 protected:
     int z;
-private: 
-    Subject(const Subject& p) {
-        printf("Subject(const Subject& p)\n");
-        x = p.x;
-        y = p.y;
-        z = p.z;
-    }
 public:
     Subject() :Object() {
         printf("Subject()\n");
@@ -58,6 +51,13 @@ public:
         printf("Subject(int x, int y)\n");
         this->z = z;
 
+    }
+
+    Subject(const Subject& p) {
+        printf("Subject(const Subject& p)\n");
+        x = p.x;
+        y = p.y;
+        z = p.z;
     }
 
     ~Subject() {
@@ -97,7 +97,32 @@ public:
     }
 };
 
-
+class test {
+protected:
+    Subject* a;
+    Subject* b;
+public:
+    test() {
+        printf("test()\n");
+        a = new Subject;
+        b = new Subject;
+    }
+    test(int x1, int y1, int z1, int x2, int y2, int z2) {
+        printf("test(int x, int y, int z)\n");
+        a = new Subject(x1, y1, z1);
+        b = new Subject(x2, y2, z2);
+    }
+    test(const test& t) {
+        printf("test(const test& p)\n");
+        a = new Subject(*(t.a));
+        b = new Subject(*(t.b));
+    }
+    ~test() {
+        delete a;
+        delete b;
+        printf("~test()\n");
+    }
+};
 
 int main() {
     {
@@ -130,6 +155,12 @@ int main() {
 
     delete s1;
     delete s2;
+
+    test* t1 = new test;
+    test* t2 = new test(*t1);
+
+    delete t1;
+    delete t2;
 
     _getch();
     return 0;
