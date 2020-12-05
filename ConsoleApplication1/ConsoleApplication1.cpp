@@ -2,27 +2,27 @@
 #include <conio.h>
 #include <stdio.h>
 
-class  Point {
+class  Object {
 public:
     int x, y;
-    Point() {
-        printf("Point()\n");
+    Object() {
+        printf("Object()\n");
         x = 0;
         y = 0;
     }
-    Point(int x, int y) {
-        printf("Point(int x, int y)\n");
+    Object(int x, int y) {
+        printf("Object(int x, int y)\n");
         this->x = x;
         this->y = y;
     }
-    Point(const Point& p) {
-        printf("Point(const Point& p)\n");
+    Object(const Object& p) {
+        printf("Object(const Object& p)\n");
         x = p.x;
         y = p.y;
     }
-    virtual ~Point() { 
+    virtual ~Object() {
         printf("%d,%d\n", x, y);
-        printf("~Point()\n");
+        printf("~Object()\n");
         printf("\n");
     }
     void change_value(int a, int b) {
@@ -32,63 +32,63 @@ public:
     void reverse();
 };
 
-void Point::reverse() {
+void Object::reverse() {
     x = -x;
     y = -y;
 }
 
 
 
-class ColoredPoint: public Point{
+class Subject: public Object {
 protected:
-    int color;
+    int z;
 private: 
-    ColoredPoint(const ColoredPoint& p) {
-        printf("ColoredPoint(const ColoredPoint& p)\n");
+    Subject(const Subject& p) {
+        printf("Subject(const Subject& p)\n");
         x = p.x;
         y = p.y;
-        color = p.color;
+        z = p.z;
     }
 public:
-    ColoredPoint() :Point() {
-        printf("ColoredPoint()\n");
-        color = 0;
+    Subject() :Object() {
+        printf("Subject()\n");
+        z = 0;
     }
-    ColoredPoint(int x, int y, int color) :Point(x,y) {
-        printf("ColoredPoint(int x, int y)\n");
-        this->color = color;
+    Subject(int x, int y, int z) :Object(x,y) {
+        printf("Subject(int x, int y)\n");
+        this->z = z;
 
     }
 
-    ~ColoredPoint() {
-        printf("%d,%d,%d\n", x, y,color);
-        printf("~ColoredPoint()\n");
+    ~Subject() {
+        printf("%d,%d,%d\n", x, y,z);
+        printf("~Subject()\n");
         printf("\n");
     }
-    void change_color(int new_color) {
-        color = new_color;
+    void change_z(int new_z) {
+        z = new_z;
     }
 };
 
 class Section {
 protected:
-    Point* p1;
-    Point* p2;
+    Object* p1;
+    Object* p2;
 public:
     Section() {
         printf("Section()\n");
-        p1 = new Point;
-        p2 = new Point;
+        p1 = new Object;
+        p2 = new Object;
     }
     Section(int x1, int y1, int x2, int y2) {
         printf("Section(int x, int y)\n");
-        p1 = new Point(x1, y1);
-        p2 = new Point(x2, y2);
+        p1 = new Object(x1, y1);
+        p2 = new Object(x2, y2);
     }
     Section(const Section& s) {
         printf("Section(const Section& p)\n");
-        p1 = new Point (*(s.p1));
-        p2 = new Point (*(s.p2));
+        p1 = new Object(*(s.p1));
+        p2 = new Object(*(s.p2));
     }
     ~Section() {
         delete p1;
@@ -101,28 +101,28 @@ public:
 
 int main() {
     {
-        Point p;
-        Point p2(10, 20);
-        Point p3(p2);
+        Object p;
+        Object p2(10, 20);
+        Object p3(p2);
         printf("\n");
     }
 
-    Point* p = new Point;
-    Point* p2 = new Point(10, 20);
+    Object* p = new Object;
+    Object* p2 = new Object(10, 20);
     p2->change_value(10, 10);
     p2->reverse();
 
-    Point* p3 = new Point(*p2);
+    Object* p3 = new Object(*p2);
     printf("\n");
 
     delete p;
     delete p2;
     delete p3;
 
-    ColoredPoint* p4 = new ColoredPoint(10, 11, 22);
+    Subject* p4 = new Subject(10, 11, 22);
     delete p4;
 
-    Point* p5 = new ColoredPoint(1, 2, 3);
+    Object* p5 = new Subject(1, 2, 3);
     delete p5;
 
     Section* s1 = new Section;
