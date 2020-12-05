@@ -100,38 +100,6 @@ public:
 
 
 int main() {
-    {
-        Point p;
-        Point p2(10, 20);
-        Point p3(p2);
-        printf("\n");
-    }
 
-    Point* p = new Point;
-    Point* p2 = new Point(10, 20);
-    p2->change_value(10, 10);
-    p2->reverse();
-
-    Point* p3 = new Point(*p2);
-    printf("\n");
-
-    delete p;
-    delete p2;
-    delete p3;
-
-    ColoredPoint* p4 = new ColoredPoint(10, 11, 22);
-    delete p4;
-
-    Point* p5 = new ColoredPoint(1, 2, 3);
-    delete p5;
-
-    Section* s1 = new Section;
-    Section* s2 = new Section(*s1);
-
-    delete s1;
-    delete s2;
-
-    _getch();
-    return 0;
 
 }
